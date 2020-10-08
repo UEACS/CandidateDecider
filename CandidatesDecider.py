@@ -37,13 +37,18 @@ def exportArray():
 	arrayFile = open("candidates.txt","w")
 	for x in range(len(array)):
 		arrayFile.write(array[x]+"\n")
+	arrayFile.close()
 
 def importArray():
-	arrayFile = open("candidates.txt","r")
+	try:
+		arrayFile = open("candidates.txt","r")
+	except FileNotFoundError:
+		return []
 	array = []
 	for x in range(file_len(arrayFile)):
 		line = arrayFile.readline()
 		array.append(line.split(","))
+	arrayFile.close()
 	return array
 
 candidateNo = len(array)
