@@ -73,7 +73,7 @@ for x in range(candidateNo):
 	if array[x][1] > averageUp: #Upvotes must be more than average
 		if array[x][1] > array[x][2]*2: #Must have at least 2X more upvotes than downvotes
 			if array[x][2] < round(totalDown/2): #Candidates has less than half the total amount of downvotes
-				if (array[x][1]-array[x][2])/members > (0.1/10): #Checks their score is high enough compared to the total votes from the last polls
+				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 					print("\nMEMBER ELECTED : "+array[x][0]+"\nUpvotes :",array[x][1],"\nDownvotes :",array[x][2])
 				else:
 					print("\n"+array[x][0]+" didn't have a high enough vote proportion")
