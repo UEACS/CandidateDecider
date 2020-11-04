@@ -76,7 +76,7 @@ for x in range(candidateNo):
 				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 					print("\nMEMBER ELECTED : "+array[x][0]+"\nUpvotes :",array[x][1],"\nDownvotes :",array[x][2])
 				else:
-					print("\n"+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round(0.5+members*2/(totalUp+totalDown)),"is needed)")
+					print("\n"+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round(0.5+members*2/(totalUp+totalDown)),"was needed)")
 			else:
 				print("\n"+array[x][0]+" has more than half of the total downvotes")
 		else:
