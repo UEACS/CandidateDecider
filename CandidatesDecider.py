@@ -74,14 +74,14 @@ for x in range(candidateNo):
 		if array[x][1] > array[x][2]*2: #Must have at least 2X more upvotes than downvotes
 			if array[x][2] < round(totalDown/2): #Candidates has less than half the total amount of downvotes
 				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
-					print("\nMEMBER ELECTED : "+array[x][0]+"\nUpvotes :",array[x][1],"\nDownvotes :",array[x][2])
+					print("\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :",array[x][1],"\n   Downvotes :",array[x][2])
 				else:
-					print("\n"+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round(0.5+members*2/(totalUp+totalDown)),"was needed)")
+					print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
 			else:
-				print("\n"+array[x][0]+" has more than half of the total downvotes")
+				print("\n   "+array[x][0]+" has more than half of the total downvotes")
 		else:
-			print("\n"+array[x][0]+" has too many downvotes compared to upvotes")
+			print("\n   "+array[x][0]+" has too many downvotes compared to upvotes")
 	else:
-		print("\n"+array[x][0]+" has less than average upvotes")
+		print("\n   "+array[x][0]+" has less than average upvotes (",round(averageUp*10)/10,")")
 exportArray()
 
