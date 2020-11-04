@@ -1,8 +1,6 @@
-Jack Mawersoft,8,0
-Pratik,0,7
-Jordan L,5,1
-Nick,16,0
-Ish (Randy),8,0
-John (Bismarck),1,9
-Adam Mangler,0,5
-Arun,8,2
+Daddy Pierre,13,1
+ari,0,0
+Nick,1,5
+Adamska,2,0
+Cam,0,5
+Ben,9,0

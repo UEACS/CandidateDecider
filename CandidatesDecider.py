@@ -16,7 +16,7 @@ def file_len(fname):
             pass
     return i + 1
 
-members = 213 #Manually enter member count
+members = 245 #Manually enter member count
 totalUp = 0
 totalDown = 0
 #Had 152 total votes last time
@@ -76,7 +76,7 @@ for x in range(candidateNo):
 				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 					print("\nMEMBER ELECTED : "+array[x][0]+"\nUpvotes :",array[x][1],"\nDownvotes :",array[x][2])
 				else:
-					print("\n"+array[x][0]+" didn't have a high enough vote proportion")
+					print("\n"+array[x][0]+" didn't have a high enough vote proportion (",round(0.5+members*2/(totalUp+totalDown))," is the minimum score needed)")
 			else:
 				print("\n"+array[x][0]+" has more than half of the total downvotes")
 		else:
