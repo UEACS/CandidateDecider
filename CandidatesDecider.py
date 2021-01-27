@@ -93,7 +93,7 @@ def calculateResults():
 						resultsArray.append(str("MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2])))
 					else:
 						print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
-						resultsArray.append(str(array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)"))
+						resultsArray.append(str(array[x][0]+" didn't have a high enough vote proportion (A score higher than"+str(round((0.5+members*2/(totalUp+totalDown))*10)/10)+"was needed but only a score of "+str(array[x][1]-array[x][2])+"was gotten)"))
 				else:
 					print("\n   "+array[x][0]+" has hlaf or more than the total downvotes")
 					resultsArray.append(str(array[x][0]+" has more than half of the total downvotes"))
@@ -108,8 +108,8 @@ def calculateResults():
 def refreshResults():
 	global window
 	global resultsArray
+	global displayTextArray
 	displayTextArray = []
-
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
 		tempTextDisplay = t.Text(window,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT)
@@ -125,7 +125,21 @@ def refreshResults():
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
 
+
+def deleteAllWidgets():
+	global window
+	for item in window.winfo_children():
+		item.pack_pack_forget()
+		"""
+		if item.winfo_children() :
+		    list.extend(item.winfo_children())
+
+		return _list
+		"""
+
+
 resultsArray = []
+displayTextArray = []
 
 window=t.Tk()
 window.title("Candidate Decider V3")
