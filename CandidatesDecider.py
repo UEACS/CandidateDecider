@@ -74,6 +74,7 @@ votesPerMember = (totalUp+totalDown)/members
 averageUp = totalUp/candidateNo
 averageDown = totalDown/candidateNo
 text = ""
+resultsArray = []
 print("Election Results:")
 for x in range(candidateNo):
 	if array[x][1] > averageUp: #Upvotes must be more than average
@@ -81,7 +82,7 @@ for x in range(candidateNo):
 			if array[x][2] < round(totalDown/2): #Candidates has less than half the total amount of downvotes
 				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 					print("\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :",array[x][1],"\n   Downvotes :",array[x][2])
-					text = text + str("\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2]))
+					text = text + str("\n\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2])+"\n")
 				else:
 					print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
 					text = text + str("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
@@ -105,5 +106,10 @@ DisplayText=Text(window,width=90,height=28,wrap=WORD)
 DisplayText.grid(row=0,column=0)
 DisplayText.insert(END,text)
 DisplayText.config(state=DISABLED)
+
+#for x in range(len(resultsArray)):
+
+Quit=Button(window,text="Quit",command=window.destroy,bg="RED")
+Quit.grid(row=1,column=0,sticky=E)
 
 window.mainloop()
