@@ -1,0 +1,7 @@
+Arun,8,5
+Ish,7,1
+Jack,11,2
+Lucas,6,0
+Nick,9,1
+Brandon,5,4
+Ben,7,0
