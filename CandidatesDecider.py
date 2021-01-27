@@ -73,7 +73,6 @@ candidateNo = len(array)
 votesPerMember = (totalUp+totalDown)/members
 averageUp = totalUp/candidateNo
 averageDown = totalDown/candidateNo
-text = ""
 resultsArray = []
 print("Election Results:")
 for x in range(candidateNo):
@@ -82,34 +81,45 @@ for x in range(candidateNo):
 			if array[x][2] < round(totalDown/2): #Candidates has less than half the total amount of downvotes
 				if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 					print("\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :",array[x][1],"\n   Downvotes :",array[x][2])
-					text = text + str("\n\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2])+"\n")
+					resultsArray.append(str("MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2])))
 				else:
 					print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
-					text = text + str("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
+					resultsArray.append(str(array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)"))
 			else:
 				print("\n   "+array[x][0]+" has more than half of the total downvotes")
-				text = text + str("\n   "+array[x][0]+" has more than half of the total downvotes")
+				resultsArray.append(str(array[x][0]+" has more than half of the total downvotes"))
 		else:
 			print("\n   "+array[x][0]+" has too many downvotes compared to upvotes")
-			text = text + str("\n   "+array[x][0]+" has too many downvotes compared to upvotes")
+			resultsArray.append(str(array[x][0]+" has too many downvotes compared to upvotes"))
 	else:
 		print("\n   "+array[x][0]+" has less than average upvotes (",round(averageUp*10)/10,")")
-		text = text + str("\n   "+array[x][0]+" has less than average upvotes ("+str(round(averageUp*10)/10)+")")
+		resultsArray.append(str(array[x][0]+" has less than average upvotes ("+str(round(averageUp*10)/10)+")"))
 exportArray()
 
 window=Tk()
 window.title("Candidate Decider V3")
-window.geometry("720x480")
+window.geometry("700x680")
+window.config(bg="#36393f")
 
 
-DisplayText=Text(window,width=90,height=28,wrap=WORD)
-DisplayText.grid(row=0,column=0)
-DisplayText.insert(END,text)
-DisplayText.config(state=DISABLED)
+displayTextArray = []
 
-#for x in range(len(resultsArray)):
+for x in range(len(resultsArray)):
+	# Numbered colum on the left
+	tempTextDisplay = Text(window,width=2,height=3,wrap=WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=FLAT)
+	tempTextDisplay.grid(row = x,column=0)
+	tempTextDisplay.insert(END,"\n"+str(x+1)+":")
+	tempTextDisplay.config(state=DISABLED)
+	displayTextArray.append(tempTextDisplay)
 
-Quit=Button(window,text="Quit",command=window.destroy,bg="RED")
-Quit.grid(row=1,column=0,sticky=E)
+	# Candidate information
+	tempTextDisplay = Text(window,width=50,height=3,wrap=WORD,bd=4,bg="GREY",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=FLAT)
+	tempTextDisplay.grid(row = x,column=1)
+	tempTextDisplay.insert(END,resultsArray[x])
+	tempTextDisplay.config(state=DISABLED)
+	displayTextArray.append(tempTextDisplay)
+
+Quit=Button(window,text="Quit",command=window.destroy,bg="RED",fg="WHITE",relief=FLAT)
+Quit.grid(row=x+1,column=1,sticky=E)
 
 window.mainloop()
