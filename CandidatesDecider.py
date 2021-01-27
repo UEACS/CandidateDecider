@@ -18,7 +18,7 @@ def file_len(fname):
             pass
     return i + 1
 
-members = 245 #Manually enter member count
+members = 271 #Manually enter member count
 totalUp = 0
 totalDown = 0
 #Had 152 total votes last time
@@ -109,6 +109,10 @@ def refreshResults():
 	global window
 	global resultsArray
 	global displayTextArray
+
+	for i in range(len(displayTextArray)):
+		displayTextArray[i].destroy()
+
 	displayTextArray = []
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
