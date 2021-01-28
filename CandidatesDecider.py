@@ -145,9 +145,9 @@ def displayAboutWindow():
 	aboutWindow.config(bg="#81A2E6")
 	aboutWindow.grid_anchor(t.N)
 
-	aboutText = t.Text(aboutWindow,width=aboutWindow.winfo_width()*30,height=aboutWindow.winfo_height()*5,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",9),relief=t.GROOVE)
+	aboutText = t.Text(aboutWindow,width=aboutWindow.winfo_width()*30,height=aboutWindow.winfo_height()*5,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",9),relief=t.RIDGE)
 	aboutText.grid(row=0,column=0)
-	aboutText.insert(t.END,"This is version 3 beta. This program has been completely made by Arun Osborn and the UI uses the Tkinter library. This message was last update 28.1.21")
+	aboutText.insert(t.END,"This is version 3.1\nThis program has been completely made by Arun Osborn and the UI uses the Tkinter library. This message was last update 28.1.21")
 	aboutText.config(state=t.DISABLED)
 
 	aboutWindow.mainloop()
@@ -200,7 +200,8 @@ FileMenu.add_command(label="Export",command=exportArray)
 
 ViewMenu=t.Menu(MenuBar,tearoff=0)
 MenuBar.add_cascade(label="View",menu=ViewMenu)
-ViewMenu.add_command(label="Refresh",command=calculateResults)
+ViewMenu.add_command(label="Recalculate",command=calculateResults)
+ViewMenu.add_command(label="Refresh",command=refreshResults)
 ViewMenu.add_command(label="About",command=displayAboutWindow)
 
 window.config(menu=MenuBar)
