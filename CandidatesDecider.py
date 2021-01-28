@@ -101,12 +101,13 @@ def calculateResults():
 				print("\n   "+array[x][0]+" has too many downvotes compared to upvotes")
 				resultsArray.append(str(array[x][0]+" has too many downvotes compared to upvotes"))
 		else:
-			print("\n   "+array[x][0]+" has less than average upvotes (",round(averageUp*10)/10,")")
-			resultsArray.append(str(array[x][0]+" has less than average upvotes ("+str(round(averageUp*10)/10)+")"))
+			print("\n   "+array[x][0]+" has fewer than average upvotes (",round(averageUp*10)/10,")")
+			resultsArray.append(str(array[x][0]+" has fewer than average upvotes ("+str(round(averageUp*10)/10)+")"))
 	refreshResults()
 
 def refreshResults():
 	global window
+	global canvas
 	global resultsArray
 	global displayTextArray
 
@@ -116,14 +117,14 @@ def refreshResults():
 	displayTextArray = []
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
-		tempTextDisplay = t.Text(window,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT)
+		tempTextDisplay = t.Text(canvas,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT,yscrollcommand = scrollBar.set)
 		tempTextDisplay.grid(row = x,column=0)
 		tempTextDisplay.insert(t.END,"\n"+str(x+1)+":")
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
 
 		# Candidate information
-		tempTextDisplay = t.Text(window,width=50,height=3,wrap=t.WORD,bd=4,bg="GREY",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT)
+		tempTextDisplay = t.Text(canvas,width=50,height=3,wrap=t.WORD,bd=4,bg="GREY",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT,yscrollcommand = scrollBar.set)
 		tempTextDisplay.grid(row = x,column=1)
 		tempTextDisplay.insert(t.END,resultsArray[x])
 		tempTextDisplay.config(state=t.DISABLED)
@@ -145,11 +146,24 @@ def deleteAllWidgets():
 resultsArray = []
 displayTextArray = []
 
+width = "1600"
+height = "760"
+
 window=t.Tk()
 window.title("Candidate Decider V3")
-window.geometry("640x680")
+window.geometry(width+"x"+height)
 window.config(bg="#36393f")
 window.grid_anchor(t.N)
+
+frame = t.Frame(window)
+frame.grid(row=0,column=0)
+canvas = t.Canvas(frame)
+canvas.configure(width=int(width),height=int(height))
+canvas.grid(row=0,column=0)
+scrollBar = t.Scrollbar(frame,orient=t.VERTICAL)
+scrollBar.config(command=canvas.yview)
+scrollBar.grid(row=0,column=2,sticky="e")
+canvas.config(yscrollcommand=scrollBar.set)
 
 MenuBar=t.Menu(window)
 FileMenu=t.Menu(MenuBar,tearoff=0)
