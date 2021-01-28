@@ -107,6 +107,9 @@ def calculateResults():
 	refreshResults()
 
 def refreshResults():
+	global window
+	global width
+	global height
 	global canvas
 	global selectionFrame
 	global resultsArray
@@ -130,6 +133,7 @@ def refreshResults():
 		tempTextDisplay.insert(t.END,resultsArray[x])
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
+	window.geometry(width+"x"+str(int(height)+1))
 
 
 
@@ -161,13 +165,13 @@ window.config(bg="#403D37")
 window.grid_anchor(t.N)
 
 # Container or the votes
-mainFrame = t.Frame(window,bg="BROWN")
+mainFrame = t.Frame(window,bg="#403D37")
 mainFrame.pack(fill=t.BOTH,expand=1)
 canvas = t.Canvas(mainFrame,bg="#36393f")
 canvas.pack(side=t.LEFT,fill=t.BOTH,expand=1)
+# Scroll area
 scrollBar = t.Scrollbar(canvas,orient=t.VERTICAL,command=canvas.yview)
 scrollBar.pack(side=t.RIGHT,fill=t.Y)
-#scrollBar.grid(row=0,column=0)
 canvas.configure(yscrollcommand=scrollBar.set)
 canvas.bind("<Configure>",lambda e:canvas.configure(scrollregion = canvas.bbox("all")))
 
