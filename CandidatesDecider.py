@@ -131,16 +131,19 @@ def refreshResults():
 		displayTextArray.append(tempTextDisplay)
 
 
-def deleteAllWidgets():
-	global window
-	for item in window.winfo_children():
-		item.pack_pack_forget()
-		"""
-		if item.winfo_children() :
-		    list.extend(item.winfo_children())
+def displayAboutWindow():
+	aboutWindow=t.Tk()
+	aboutWindow.title("About CD3")
+	aboutWindow.geometry("250x120")
+	aboutWindow.config(bg="#81A2E6")
+	aboutWindow.grid_anchor(t.N)
 
-		return _list
-		"""
+	aboutText = t.Text(aboutWindow,width=aboutWindow.winfo_width()*30,height=aboutWindow.winfo_height()*5,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",9),relief=t.GROOVE)
+	aboutText.grid(row=0,column=0)
+	aboutText.insert(t.END,"This is version 3 beta. This program has been completely made by Arun Osborn and the UI uses the Tkinter library. This message was last update 28.1.21")
+	aboutText.config(state=t.DISABLED)
+
+	aboutWindow.mainloop()
 
 
 resultsArray = []
@@ -156,9 +159,11 @@ window.config(bg="#36393f")
 window.grid_anchor(t.N)
 
 frame = t.Frame(window)
+frame.config(width=1,height=1)
 frame.grid(row=0,column=0)
+#frame.columnconfigure(0,1)
 canvas = t.Canvas(frame)
-canvas.configure(width=int(width),height=int(height))
+canvas.configure(width=int(width)/2,height=int(height)*0.9)
 canvas.grid(row=0,column=0)
 scrollBar = t.Scrollbar(frame,orient=t.VERTICAL)
 scrollBar.config(command=canvas.yview)
@@ -175,6 +180,7 @@ FileMenu.add_command(label="Export",command=exportArray)
 ViewMenu=t.Menu(MenuBar,tearoff=0)
 MenuBar.add_cascade(label="View",menu=ViewMenu)
 ViewMenu.add_command(label="Refresh",command=calculateResults)
+ViewMenu.add_command(label="About",command=displayAboutWindow)
 
 window.config(menu=MenuBar)
 
