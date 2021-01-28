@@ -118,9 +118,9 @@ def refreshResults():
 	displayTextArray = []
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
-		tempTextDisplay = t.Text(selectionFrame,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT)
+		tempTextDisplay = t.Text(selectionFrame,width=3,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="#87898C",highlightcolor="PURPLE",padx=4,pady=4,font=("Helvetica",15),relief=t.FLAT)
 		tempTextDisplay.grid(row = x,column=0,sticky=t.E)
-		tempTextDisplay.insert(t.END,"\n"+str(x+1)+":")
+		tempTextDisplay.insert(t.END,"\n  "+str(x+1)+":")
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
 
@@ -172,6 +172,7 @@ canvas.configure(yscrollcommand=scrollBar.set)
 canvas.bind("<Configure>",lambda e:canvas.configure(scrollregion = canvas.bbox("all")))
 
 selectionFrame = t.Frame(canvas)
+selectionFrame.grid_anchor(t.NE)
 canvas.create_window((0,0),window=selectionFrame,anchor="nw")
 
 
