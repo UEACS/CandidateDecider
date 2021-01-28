@@ -88,12 +88,13 @@ def calculateResults():
 		if array[x][1] > averageUp: #Upvotes must be more than average
 			if array[x][1] > array[x][2]*2: #Must have at least 2X more upvotes than downvotes
 				if array[x][2] < round(totalDown/2): #Candidates has less than half the total amount of downvotes
-					if array[x][1]-array[x][2] > members*2/(totalUp+totalDown): #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
+					minVoteProportion = round((0.5+members*1.5/(totalUp+totalDown))*10)/10
+					if array[x][1]-array[x][2] > minVoteProportion: #Checks if score is high enough compared to voters. (The more members that vote, the more elected)
 						print("\n   MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :",array[x][1],"\n   Downvotes :",array[x][2])
 						resultsArray.append(str("MEMBER ELECTED : "+array[x][0]+"\n   Upvotes :"+str(array[x][1])+"\n   Downvotes :"+str(array[x][2])))
 					else:
-						print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",round((0.5+members*2/(totalUp+totalDown))*10)/10,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
-						resultsArray.append(str(array[x][0]+" didn't have a high enough vote proportion (A score higher than "+str(round((0.5+members*2/(totalUp+totalDown))*10)/10)+" was needed but only a score of "+str(array[x][1]-array[x][2])+" was gotten)"))
+						print("\n   "+array[x][0]+" didn't have a high enough vote proportion (A score higher than",minVoteProportion,"was needed but only a score of ",(array[x][1]-array[x][2]),"was gotten)")
+						resultsArray.append(str(array[x][0]+" didn't have a high enough vote proportion (A score higher than "+str(minVoteProportion)+" was needed but only a score of "+str(array[x][1]-array[x][2])+" was gotten)"))
 				else:
 					print("\n   "+array[x][0]+" has hlaf or more than the total downvotes")
 					resultsArray.append(str(array[x][0]+" has more than half of the total downvotes"))
@@ -106,8 +107,8 @@ def calculateResults():
 	refreshResults()
 
 def refreshResults():
-	global window
 	global canvas
+	global selectionFrame
 	global resultsArray
 	global displayTextArray
 
@@ -117,15 +118,15 @@ def refreshResults():
 	displayTextArray = []
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
-		tempTextDisplay = t.Text(canvas,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT,yscrollcommand = scrollBar.set)
-		tempTextDisplay.grid(row = x,column=0)
+		tempTextDisplay = t.Text(selectionFrame,width=2,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",15),relief=t.FLAT)
+		tempTextDisplay.grid(row = x,column=0,sticky=t.E)
 		tempTextDisplay.insert(t.END,"\n"+str(x+1)+":")
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
 
 		# Candidate information
-		tempTextDisplay = t.Text(canvas,width=50,height=3,wrap=t.WORD,bd=4,bg="GREY",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT,yscrollcommand = scrollBar.set)
-		tempTextDisplay.grid(row = x,column=1)
+		tempTextDisplay = t.Text(selectionFrame,width=40,height=3,wrap=t.WORD,bd=4,bg="GREY",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT)
+		tempTextDisplay.grid(row = x,column=1,sticky=t.W)
 		tempTextDisplay.insert(t.END,resultsArray[x])
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
@@ -158,17 +159,20 @@ window.geometry(width+"x"+height)
 window.config(bg="#36393f")
 window.grid_anchor(t.N)
 
-frame = t.Frame(window)
-frame.config(width=1,height=1)
-frame.grid(row=0,column=0)
-#frame.columnconfigure(0,1)
-canvas = t.Canvas(frame)
-canvas.configure(width=int(width)/2,height=int(height)*0.9)
-canvas.grid(row=0,column=0)
-scrollBar = t.Scrollbar(frame,orient=t.VERTICAL)
-scrollBar.config(command=canvas.yview)
-scrollBar.grid(row=0,column=2,sticky="e")
-canvas.config(yscrollcommand=scrollBar.set)
+# Container or the votes
+mainFrame = t.Frame(window)
+mainFrame.pack(fill=t.BOTH,expand=1)
+canvas = t.Canvas(mainFrame)
+canvas.pack(side=t.TOP,fill=t.BOTH,expand=1)
+scrollBar = t.Scrollbar(mainFrame,orient=t.VERTICAL,command=canvas.yview)
+scrollBar.pack(side=t.RIGHT,fill=t.Y)
+#scrollBar.grid(row=0,column=0)
+canvas.configure(yscrollcommand=scrollBar.set)
+canvas.bind("<Configure>",lambda e:canvas.configure(scrollregion = canvas.bbox("all")))
+
+selectionFrame = t.Frame(canvas)
+canvas.create_window((0,0),window=selectionFrame,anchor="nw")
+
 
 MenuBar=t.Menu(window)
 FileMenu=t.Menu(MenuBar,tearoff=0)
@@ -185,8 +189,8 @@ ViewMenu.add_command(label="About",command=displayAboutWindow)
 window.config(menu=MenuBar)
 
 
-
+"""
 Quit = t.Button(window,text="Quit",command=window.destroy,bg="RED",fg="WHITE",font=("Helvetica",10),relief=t.FLAT)
 Quit.grid(row=len(resultsArray)+1,column=1,sticky=t.E)
-
+"""
 window.mainloop()
