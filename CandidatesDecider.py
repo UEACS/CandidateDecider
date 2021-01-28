@@ -132,6 +132,7 @@ def refreshResults():
 		displayTextArray.append(tempTextDisplay)
 
 
+
 def displayAboutWindow():
 	aboutWindow=t.Tk()
 	aboutWindow.title("About CD3")
@@ -156,15 +157,15 @@ height = "760"
 window=t.Tk()
 window.title("Candidate Decider V3")
 window.geometry(width+"x"+height)
-window.config(bg="#36393f")
+window.config(bg="#403D37")
 window.grid_anchor(t.N)
 
 # Container or the votes
-mainFrame = t.Frame(window)
+mainFrame = t.Frame(window,bg="BROWN")
 mainFrame.pack(fill=t.BOTH,expand=1)
-canvas = t.Canvas(mainFrame)
-canvas.pack(side=t.TOP,fill=t.BOTH,expand=1)
-scrollBar = t.Scrollbar(mainFrame,orient=t.VERTICAL,command=canvas.yview)
+canvas = t.Canvas(mainFrame,bg="#36393f")
+canvas.pack(side=t.LEFT,fill=t.BOTH,expand=1)
+scrollBar = t.Scrollbar(canvas,orient=t.VERTICAL,command=canvas.yview)
 scrollBar.pack(side=t.RIGHT,fill=t.Y)
 #scrollBar.grid(row=0,column=0)
 canvas.configure(yscrollcommand=scrollBar.set)
