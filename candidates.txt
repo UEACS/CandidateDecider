@@ -1,12 +1,8 @@
-Jack Mawer,11,0
-Arun,10,0
+Luke,13,0
+Brandon,7,3
+Dom,14,1
+Arun,11,0
+Jack,14,0
+Ish,13,0
+Charis,13,1
 Lukasz,11,0
-Jack Hobby,9,1
-Nick,12,0
-Ish,11,1
-Charlie,8,0
-Joseph (Pratik),2,4
-Caz,12,0
-Charles,0,1
-Amrak,7,0
-Ben,20,0
