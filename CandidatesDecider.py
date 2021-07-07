@@ -6,7 +6,7 @@
 #
 # Created:     05/10/2020
 # Copyright:   (c) AOs Productions 2020 - 2021
-# Version:	   3.1
+# Version:	   3.1.1
 #-------------------------------------------------------------------------------
 import math
 import tkinter as t
@@ -23,6 +23,8 @@ totalUp = 0
 totalDown = 0
 #Had 152 total votes last time
 array = []
+
+candFilePath = "candidates.txt"
 
 def inputArray():
 	global totalUp
@@ -45,7 +47,7 @@ def inputArray():
 
 def exportArray():
 	global array
-	arrayFile = open("candidates.txt","w")
+	arrayFile = open(candFilePath,"w")
 	for x in range(len(array)):
 		arrayFile.write(array[x][0]+","+str(array[x][1])+","+str(array[x][2])+"\n")
 	arrayFile.close()
@@ -55,9 +57,9 @@ def importArray():
 	global totalDown
 	global array
 	try:
-		arrayFile = open("candidates.txt","r")
+		arrayFile = open(candFilePath,"r")
 		array = []
-		for x in range(file_len("candidates.txt")):
+		for x in range(file_len(candFilePath)):
 			line = arrayFile.readline()
 			array.append(line.split(","))
 			array[x][1] = int(array[x][1])
@@ -125,14 +127,14 @@ def refreshResults():
 	displayTextArray = []
 	for x in range(len(resultsArray)):
 		# Numbered colum on the left
-		tempTextDisplay = t.Text(selectionFrame,width=3,height=3,wrap=t.WORD,bd=4,bg="#36393f",fg="#87898C",highlightcolor="PURPLE",padx=4,pady=4,font=("Helvetica",15),relief=t.FLAT)
+		tempTextDisplay = t.Text(selectionFrame,width=3,height=3,wrap=t.WORD,bd=4,bg="#35424a",fg="#3E73DE",highlightcolor="PURPLE",padx=4,pady=4,font=("Helvetica",15),relief=t.FLAT)
 		tempTextDisplay.grid(row = x+1,column=0,sticky=t.E)
 		tempTextDisplay.insert(t.END,"\n  "+str(x+1)+":")
 		tempTextDisplay.config(state=t.DISABLED)
 		displayTextArray.append(tempTextDisplay)
 
 		# Candidate information
-		tempTextDisplay = t.Text(selectionFrame,width=40,height=3,wrap=t.WORD,bd=4,bg="#6B768C",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT)
+		tempTextDisplay = t.Text(selectionFrame,width=40,height=3,wrap=t.WORD,bd=4,bg="#00abe1",fg="WHITE",highlightcolor="PURPLE",padx=4,font=("Helvetica",14),relief=t.FLAT)
 		tempTextDisplay.grid(row = x+1,column=1,sticky=t.W)
 		tempTextDisplay.insert(t.END,resultsArray[x])
 		tempTextDisplay.config(state=t.DISABLED)
@@ -143,14 +145,14 @@ def refreshResults():
 
 def displayAboutWindow():
 	aboutWindow=t.Tk()
-	aboutWindow.title("About CD 3.1")
+	aboutWindow.title("About CD 3.1.1")
 	aboutWindow.geometry("250x120")
-	aboutWindow.config(bg="#81A2E6")
+	aboutWindow.config(bg="#35424a")
 	aboutWindow.grid_anchor(t.N)
 
-	aboutText = t.Text(aboutWindow,width=aboutWindow.winfo_width()*30,height=aboutWindow.winfo_height()*5,wrap=t.WORD,bd=4,bg="#36393f",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",9),relief=t.RIDGE)
+	aboutText = t.Text(aboutWindow,width=aboutWindow.winfo_width()*30,height=aboutWindow.winfo_height()*5,wrap=t.WORD,bd=4,bg="#3E73DE",fg="WHITE",highlightcolor="PURPLE",pady=8,font=("Helvetica",9),relief=t.RIDGE)
 	aboutText.grid(row=0,column=0)
-	aboutText.insert(t.END,"This is version 3.1\nThis program has been completely made by Arun Osborn and the UI uses the Tkinter library. This message was last update 28.1.21")
+	aboutText.insert(t.END,"This is version 3.1.1\nThis program has been completely made by Arun Osborn and the UI uses the Tkinter library. This message was last update 7.7.21")
 	aboutText.config(state=t.DISABLED)
 
 	aboutWindow.mainloop()
@@ -159,7 +161,7 @@ def displayAboutWindow():
 resultsArray = []
 displayTextArray = []
 
-width = "1600"
+width = "1400"
 height = "760"
 
 window=t.Tk()
@@ -171,7 +173,7 @@ window.grid_anchor(t.N)
 # Container or the votes
 mainFrame = t.Frame(window,bg="BROWN",width=200,cursor="dotbox")
 mainFrame.pack(fill=t.BOTH,expand=1)
-canvas = t.Canvas(mainFrame,bg="#36393f",width=200)
+canvas = t.Canvas(mainFrame,bg="#35424a",width=200)
 canvas.pack(side=t.LEFT,fill=t.BOTH,expand=1)
 # Scroll area
 scrollBar = t.Scrollbar(canvas,orient=t.VERTICAL,command=canvas.yview)
@@ -179,16 +181,16 @@ scrollBar.pack(side=t.RIGHT,fill=t.Y)
 canvas.configure(yscrollcommand=scrollBar.set)
 canvas.bind("<Configure>",lambda e:canvas.configure(scrollregion = canvas.bbox("all")))
 
-selectionFrame = t.Frame(canvas,bg="#36393f")
+selectionFrame = t.Frame(canvas,bg="#35424a")
 selectionFrame.grid_anchor(t.NE)
 canvas.create_window((0,0),window=selectionFrame,anchor="nw")
 
-numberHeader = t.Text(selectionFrame,width=3,height=1,wrap=t.WORD,bd=4,bg="#36393f",fg="#87898C",highlightcolor="PURPLE",padx=4,pady=8,font=("Helvetica",15),relief=t.FLAT)
+numberHeader = t.Text(selectionFrame,width=3,height=1,wrap=t.WORD,bd=4,bg="#35424a",fg="#3E73DE",highlightcolor="PURPLE",padx=4,pady=8,font=("Helvetica",15),relief=t.FLAT)
 numberHeader.grid(row = 0,column=0,sticky=t.E)
 numberHeader.insert(t.END,"No.")
 numberHeader.config(state=t.DISABLED)
 
-candidateHeader = t.Text(selectionFrame,width=40,height=1,wrap=t.WORD,bd=4,bg="#6B768C",fg="WHITE",highlightcolor="PURPLE",padx=4,pady=8,font=("Helvetica",14),relief=t.FLAT)
+candidateHeader = t.Text(selectionFrame,width=40,height=1,wrap=t.WORD,bd=4,bg="#3E73DE",fg="WHITE",highlightcolor="PURPLE",padx=4,pady=8,font=("Helvetica",14),relief=t.FLAT)
 candidateHeader.grid(row = 0,column=1,sticky=t.W)
 candidateHeader.insert(t.END,"Candidate")
 candidateHeader.config(state=t.DISABLED)
