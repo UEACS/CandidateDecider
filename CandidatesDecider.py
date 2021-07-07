@@ -5,8 +5,8 @@
 # Author:      Arun Osborn
 #
 # Created:     05/10/2020
-# Copyright:   (c) AOs Productions 2020
-# Version:	   0.1
+# Copyright:   (c) AOs Productions 2020 - 2021
+# Version:	   3.1
 #-------------------------------------------------------------------------------
 import math
 import tkinter as t
